@@ -1,0 +1,26 @@
+# ~/.gitconfig.local にコピーして値を設定してください
+# このファイルはgit管理されません
+
+[user]
+	name = YOUR NAME
+	email = your@email.com
+	signingkey = YOUR_SSH_SIGNING_KEY
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowedSigners
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

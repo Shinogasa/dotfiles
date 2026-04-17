@@ -1,0 +1,51 @@
+[core]
+	excludesfile = ~/.gitignore_global
+	autocrlf = input
+[alias]
+        st = status
+        ss = status -s
+        co = checkout
+        cm = commit
+        cmamend = commit --amend
+        cmamendno = commit --amend --no-edit
+        br = branch
+        pl = pull
+        fc = fetch
+        ad = add -p
+        gr = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+        sw = switch
+[color]
+        ui = always
+
+[color "branch"]
+        current = green bold
+        local = green
+        remote = yellow
+[color "diff"]
+        frag = magenta
+        meta = yellow
+        new = green
+        old = red
+
+[color "diff-highlight"]
+        oldNormal = red bold
+        oldHighlight = "red bold 52"
+        newNormal = "green bold"
+        newHighlight = "green bold 22"
+
+[color "status"]
+        added = green reverse
+        changed = yellow reverse
+        untracked = red reverse
+[fetch]
+	prune = true
+[gpg]
+	format = ssh
+[commit]
+	gpgSign = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[include]
+	path = ~/.gitconfig.local
