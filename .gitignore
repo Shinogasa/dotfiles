@@ -1,3 +1,10 @@
 *.swp
 *~
 .DS_Store
+
+# 秘匿情報・自動生成・依存物（取り込み禁止）
+config/gh/hosts.yml
+config/karabiner/automatic_backups/
+hyper_plugins/node_modules/
+hyper_plugins/cache/
+hyper_plugins/local/
