@@ -12,7 +12,12 @@ BACKUP_DIR="$HOME/dotfiles-backups/$(date +%Y%m%d_%H%M%S)"
 TARGETS=(
   "zshrc:$HOME/.zshrc"
   "gitconfig:$HOME/.gitconfig"
-  "gitignore_global:$HOME/.gitignore_global"
+  "config/git/ignore:$HOME/.config/git/ignore"
+  "hyper.js:$HOME/.hyper.js"
+  "hyper_plugins/package.json:$HOME/.hyper_plugins/package.json"
+  "config/starship.toml:$HOME/.config/starship.toml"
+  "config/karabiner/karabiner.json:$HOME/.config/karabiner/karabiner.json"
+  "config/gh/config.yml:$HOME/.config/gh/config.yml"
 )
 
 # 色付き出力
@@ -50,10 +55,13 @@ for target in "${TARGETS[@]}"; do
       mkdir -p "$BACKUP_DIR"
       backup_created=true
     fi
-    yellow "  バックアップ: $dest → $BACKUP_DIR/$src_rel"
-    mv "$dest" "$BACKUP_DIR/$src_rel"
+    backup_path="$BACKUP_DIR/$(basename "$src_rel")"
+    yellow "  バックアップ: $dest → $backup_path"
+    mv "$dest" "$backup_path"
   fi
 
+  # ネストパス対応：リンク先の親ディレクトリを作成
+  mkdir -p "$(dirname "$dest")"
   ln -s "$src" "$dest"
   green "✓ $src_rel → $dest （新規作成）"
 done

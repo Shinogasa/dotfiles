@@ -32,7 +32,12 @@ source ~/.zshrc
 | `zshrc.local.example` | マシン固有設定のテンプレート | — |
 | `gitconfig` | Git 設定（共通部分） | `~/.gitconfig` |
 | `gitconfig.local.example` | マシン固有 Git 設定のテンプレート | — |
-| `gitignore_global` | グローバル gitignore | `~/.gitignore_global` |
+| `config/git/ignore` | グローバル gitignore（XDG準拠） | `~/.config/git/ignore` |
+| `hyper.js` | Hyper ターミナル設定 | `~/.hyper.js` |
+| `hyper_plugins/package.json` | Hyper プラグイン定義 | `~/.hyper_plugins/package.json` |
+| `config/starship.toml` | Starship プロンプト設定 | `~/.config/starship.toml` |
+| `config/karabiner/karabiner.json` | Karabiner キー設定 | `~/.config/karabiner/karabiner.json` |
+| `config/gh/config.yml` | gh CLI 設定（非秘匿） | `~/.config/gh/config.yml` |
 | `Brewfile` | Homebrew パッケージ一覧 | — |
 | `setup.sh` | シンボリックリンク作成スクリプト | — |
 
@@ -42,6 +47,15 @@ source ~/.zshrc
 
 - `~/.zshrc.local` — API キー、トークン、SSH Agent パス
 - `~/.gitconfig.local` — user.name/email、signingkey、credential helper
+- `~/.config/gh/hosts.yml` — gh CLI の OAuth トークン（**取り込み禁止・`.gitignore` で除外**）
+
+## Hyper プラグインのインストール
+
+`hyper_plugins/package.json` のみ追跡し、`node_modules/` は除外している。クローン直後は以下を実行:
+
+```bash
+cd ~/.hyper_plugins && npm install
+```
 
 ## zshrc が依存するツール
 
@@ -71,3 +85,16 @@ sed -i '' '/^vscode /d' ~/garage/dotfiles/Brewfile
 ## VSCode 拡張
 
 VSCode 拡張は Settings Sync（GitHub アカウント連携）で管理する。Brewfile には含めない。
+
+## レガシーファイルのクリーンアップ
+
+旧構成からの移行時は、`setup.sh` 実行後に以下を確認・削除する:
+
+```bash
+# 旧 ~/.gitignore_global symlink（XDG移行で不要）
+[ -L ~/.gitignore_global ] && rm ~/.gitignore_global
+
+# ignore ルールが効いているか検証
+git check-ignore -v ~/.DS_Store
+# → ~/.config/git/ignore:2:.DS_Store ... のように表示されればOK
+```
