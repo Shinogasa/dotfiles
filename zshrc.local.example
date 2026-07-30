@@ -15,3 +15,7 @@ export ANTHROPIC_AUTH_TOKEN=your_key_here
 # shell export した ANTHROPIC_* は ~/.claude/settings.json の env に優先度で負けるため、
 # --settings に JSON を直接渡してCLI引数として上書きする (settings.jsonの他の設定は保持される)
 alias claude-local='claude --settings "{\"env\":{\"ANTHROPIC_BASE_URL\":\"http://localhost:11434\",\"ANTHROPIC_AUTH_TOKEN\":\"ollama\",\"ANTHROPIC_MODEL\":\"your-local-model\",\"CLAUDE_CODE_SUBAGENT_MODEL\":\"your-local-model\"}}"'
+
+# my-claude-code-settings の setup.sh で ~/.claude/settings.ollama.json を生成している場合は
+# PATHを渡すだけで済む (enabledPluginsでのプラグイン軽量化もテンプレート側で定義済み)
+alias claude-qwen='claude --settings ~/.claude/settings.ollama.json'
