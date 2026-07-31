@@ -33,11 +33,11 @@ source ~/.zshrc
 | `gitconfig` | Git 設定（共通部分） | `~/.gitconfig` |
 | `gitconfig.local.example` | マシン固有 Git 設定のテンプレート | — |
 | `config/git/ignore` | グローバル gitignore（XDG準拠） | `~/.config/git/ignore` |
-| `hyper.js` | Hyper ターミナル設定 | `~/.hyper.js` |
-| `hyper_plugins/package.json` | Hyper プラグイン定義 | `~/.hyper_plugins/package.json` |
 | `config/starship.toml` | Starship プロンプト設定 | `~/.config/starship.toml` |
 | `config/karabiner/karabiner.json` | Karabiner キー設定 | `~/.config/karabiner/karabiner.json` |
 | `config/gh/config.yml` | gh CLI 設定（非秘匿） | `~/.config/gh/config.yml` |
+| `config/cmux/cmux.json` | cmux ターミナル設定（ショートカット等） | `~/.config/cmux/cmux.json` |
+| `config/cmux/hooks/*.sh` | cmux codex 連携フックスクリプト | `~/.cmux/hooks/*.sh` |
 | `Brewfile` | Homebrew パッケージ一覧 | — |
 | `setup.sh` | シンボリックリンク作成スクリプト | — |
 
@@ -48,14 +48,6 @@ source ~/.zshrc
 - `~/.zshrc.local` — API キー、トークン、SSH Agent パス
 - `~/.gitconfig.local` — user.name/email、signingkey、credential helper
 - `~/.config/gh/hosts.yml` — gh CLI の OAuth トークン（**取り込み禁止・`.gitignore` で除外**）
-
-## Hyper プラグインのインストール
-
-`hyper_plugins/package.json` のみ追跡し、`node_modules/` は除外している。クローン直後は以下を実行:
-
-```bash
-cd ~/.hyper_plugins && npm install
-```
 
 ## zshrc が依存するツール
 

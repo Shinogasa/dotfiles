@@ -13,11 +13,16 @@ TARGETS=(
   "zshrc:$HOME/.zshrc"
   "gitconfig:$HOME/.gitconfig"
   "config/git/ignore:$HOME/.config/git/ignore"
-  "hyper.js:$HOME/.hyper.js"
-  "hyper_plugins/package.json:$HOME/.hyper_plugins/package.json"
   "config/starship.toml:$HOME/.config/starship.toml"
   "config/karabiner/karabiner.json:$HOME/.config/karabiner/karabiner.json"
   "config/gh/config.yml:$HOME/.config/gh/config.yml"
+  "config/cmux/cmux.json:$HOME/.config/cmux/cmux.json"
+  "config/cmux/hooks/cmux-codex-hook-notification.sh:$HOME/.cmux/hooks/cmux-codex-hook-notification.sh"
+  "config/cmux/hooks/cmux-codex-hook-post-tool-use.sh:$HOME/.cmux/hooks/cmux-codex-hook-post-tool-use.sh"
+  "config/cmux/hooks/cmux-codex-hook-pre-tool-use.sh:$HOME/.cmux/hooks/cmux-codex-hook-pre-tool-use.sh"
+  "config/cmux/hooks/cmux-codex-hook-prompt-submit.sh:$HOME/.cmux/hooks/cmux-codex-hook-prompt-submit.sh"
+  "config/cmux/hooks/cmux-codex-hook-session-start.sh:$HOME/.cmux/hooks/cmux-codex-hook-session-start.sh"
+  "config/cmux/hooks/cmux-codex-hook-stop.sh:$HOME/.cmux/hooks/cmux-codex-hook-stop.sh"
 )
 
 # 色付き出力
