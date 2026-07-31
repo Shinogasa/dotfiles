@@ -38,6 +38,7 @@ source ~/.zshrc
 | `config/gh/config.yml` | gh CLI 設定（非秘匿） | `~/.config/gh/config.yml` |
 | `config/cmux/cmux.json` | cmux ターミナル設定（ショートカット等） | `~/.config/cmux/cmux.json` |
 | `config/cmux/hooks/*.sh` | cmux codex 連携フックスクリプト | `~/.cmux/hooks/*.sh` |
+| `config/rtk/config.toml` | rtk（トークン圧縮CLI）設定 | `~/.config/rtk/config.toml` |
 | `Brewfile` | Homebrew パッケージ一覧 | — |
 | `setup.sh` | シンボリックリンク作成スクリプト | — |
 

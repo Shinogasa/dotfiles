@@ -1,0 +1,6 @@
+[hooks]
+# exclude_commands = ["curl", "playwright"]  # 自動リライトから除外したいコマンド
+
+[tee]
+enabled = true    # コマンド失敗時に生の出力を保存する
+mode = "failures" # "failures" | "always" | "never"

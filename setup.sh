@@ -17,6 +17,7 @@ TARGETS=(
   "config/karabiner/karabiner.json:$HOME/.config/karabiner/karabiner.json"
   "config/gh/config.yml:$HOME/.config/gh/config.yml"
   "config/cmux/cmux.json:$HOME/.config/cmux/cmux.json"
+  "config/rtk/config.toml:$HOME/.config/rtk/config.toml"
   "config/cmux/hooks/cmux-codex-hook-notification.sh:$HOME/.cmux/hooks/cmux-codex-hook-notification.sh"
   "config/cmux/hooks/cmux-codex-hook-post-tool-use.sh:$HOME/.cmux/hooks/cmux-codex-hook-post-tool-use.sh"
   "config/cmux/hooks/cmux-codex-hook-pre-tool-use.sh:$HOME/.cmux/hooks/cmux-codex-hook-pre-tool-use.sh"
