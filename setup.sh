@@ -17,6 +17,8 @@ TARGETS=(
   "config/karabiner/karabiner.json:$HOME/.config/karabiner/karabiner.json"
   "config/gh/config.yml:$HOME/.config/gh/config.yml"
   "config/cmux/cmux.json:$HOME/.config/cmux/cmux.json"
+  # cmux は ghostty ベースのため、外観設定は ghostty 側の設定パスを参照する
+  "config/cmux/config.ghostty:$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
   "config/rtk/config.toml:$HOME/.config/rtk/config.toml"
   "config/cmux/hooks/cmux-codex-hook-notification.sh:$HOME/.cmux/hooks/cmux-codex-hook-notification.sh"
   "config/cmux/hooks/cmux-codex-hook-post-tool-use.sh:$HOME/.cmux/hooks/cmux-codex-hook-post-tool-use.sh"
