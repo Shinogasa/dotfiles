@@ -73,6 +73,9 @@ export PATH=$PATH:/usr/local/opt.coreutils/libexec/gnubin
 eval "$(zoxide init zsh)"
 export PATH="$HOME/.local/bin:$PATH"
 
+# Claude Code 設定リポジトリの実行ファイル（my-claude-code-settings/bin へのsymlink）
+export PATH="$HOME/.claude/bin:$PATH"
+
 # IntelliJ IDEAをコマンドラインから起動するための関数
 idea() { open -a "IntelliJ IDEA" "$@"; }
 
