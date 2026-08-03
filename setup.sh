@@ -100,8 +100,10 @@ if [ -f "$SCRIPT_DIR/Brewfile" ]; then
   if command -v brew > /dev/null 2>&1; then
     yellow "Brewfile が見つかりました。パッケージをインストールするには:"
     yellow "  → brew bundle install --file=$SCRIPT_DIR/Brewfile"
-    yellow "現在の環境を Brewfile に反映するには:"
-    yellow "  → brew bundle dump --force --file=$SCRIPT_DIR/Brewfile && sed -i '' '/^vscode /d' $SCRIPT_DIR/Brewfile"
+    yellow "再現性を検証するには（--no-upgrade を外すと未更新なだけで失敗する）:"
+    yellow "  → brew bundle check --no-upgrade --file=$SCRIPT_DIR/Brewfile"
+    yellow "実環境との差分を確認するには（Brewfile の上書きはしないこと。詳細は README 参照）:"
+    yellow "  → brew bundle dump --force --file=/tmp/Brewfile.dump && diff $SCRIPT_DIR/Brewfile /tmp/Brewfile.dump"
   else
     yellow "Homebrew が見つかりません。先にインストールしてください: https://brew.sh"
   fi
