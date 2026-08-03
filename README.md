@@ -37,10 +37,31 @@ source ~/.zshrc
 | `config/karabiner/karabiner.json` | Karabiner キー設定 | `~/.config/karabiner/karabiner.json` |
 | `config/gh/config.yml` | gh CLI 設定（非秘匿） | `~/.config/gh/config.yml` |
 | `config/cmux/cmux.json` | cmux ターミナル設定（ショートカット等） | `~/.config/cmux/cmux.json` |
+| `config/cmux/config.ghostty` | cmux 外観設定（フォント・透過等） | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
 | `config/cmux/hooks/*.sh` | cmux codex 連携フックスクリプト | `~/.cmux/hooks/*.sh` |
 | `config/rtk/config.toml` | rtk（トークン圧縮CLI）設定 | `~/.config/rtk/config.toml` |
 | `Brewfile` | Homebrew パッケージ一覧 | — |
 | `setup.sh` | シンボリックリンク作成スクリプト | — |
+
+> **cmux の設定ファイルについて**
+>
+> cmux は ghostty ベースのターミナルのため、外観設定（フォント・透過等）は上流 ghostty の設定パスを読む。
+> ショートカット等の cmux 独自設定は `~/.config/cmux/cmux.json` 側で管理する。
+>
+> 設定ファイルの探索順位（cmux 0.64.20 で実測）:
+>
+> 1. `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` ← **優先。これを管理対象にしている**
+> 2. `~/.config/ghostty/config.ghostty`（XDG）— 1 が存在しない場合のみ読まれる
+>
+> XDG 側は 1 が存在すると**警告なく無視される**（設定が効かない原因が見えない）ため、確実に効く 1 を採用した。
+> なお `~/Library/Application Support/com.cmuxterm.app/config.ghostty` にも同名の空ファイルが生成されるが、現状は未使用。
+>
+> アプリID `com.mitchellh.ghostty` は上流 ghostty 由来のため、将来 cmux が自前IDへ移行すると 1 が無効化される可能性がある。
+> 外観設定が効かなくなったら、まず実効値を確認する:
+>
+> ```bash
+> /Applications/cmux.app/Contents/Resources/bin/ghostty +show-config | grep font-size
+> ```
 
 ## 秘匿情報の管理
 
