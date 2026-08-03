@@ -24,6 +24,32 @@ bash setup.sh
 source ~/.zshrc
 ```
 
+### サードパーティ tap の信頼（Homebrew 6.0 以降）
+
+Homebrew 6.0 で tap trust 機構が導入され、**非公式 tap の formula / cask / 外部コマンドは
+既定で untrusted** になった。信頼を宣言するまで Homebrew はそれらを読み込まない。
+
+これはツールの安全性の判定結果ではなく、**全ての非公式 tap に一律で適用される既定値**。
+信頼済みエントリは `~/.homebrew/trust.json`（`$XDG_CONFIG_HOME` 設定時は
+`$XDG_CONFIG_HOME/homebrew/trust.json`）に記録される。
+
+```bash
+# 各 tap の信頼状態を確認する（2行目に Trusted / Untrusted が出る）
+brew tap-info kayac/tap
+
+# 必要な formula だけを信頼する
+brew trust --formula kayac/tap/ecspresso
+```
+
+> **`--tap` ではなく `--formula` で宣言する**
+>
+> `brew trust --tap kayac/tap` は tap 配下の全 formula（`bqin` `gunfish` `katsubushi` 等）に加え、
+> **将来 tap に追加される formula も自動的に信頼範囲に入れる**。
+> 必要な1件だけを `--formula` で宣言し、信頼範囲を最小に保つ。
+
+未信頼のまま放置すると `brew bundle check` が「最新かどうか判定できない」ことを理由に
+そのパッケージを未充足として報告する（インストール自体は済んでいても失敗する）。
+
 ## ファイル構成
 
 | ファイル | 説明 | リンク先 |
