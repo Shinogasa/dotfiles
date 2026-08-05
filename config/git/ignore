@@ -3,3 +3,11 @@
 .mcp.json
 .serena
 **/.claude/settings.local.json
+
+# superpowers（個人導入プラグイン）の生成物。既定で無視する。
+# 内部にスラッシュを含むパターンはリポジトリルートにアンカーされるため、
+# ネストしたサブプロジェクト配下にも効かせるには **/ が必須。
+# 設計履歴を残したいリポジトリは、その .gitignore に !**/docs/superpowers/ と書いて
+# 打ち消す（negation も同じアンカー規則。**/ が無いとルート直下しか復活しない）。
+**/docs/superpowers/
+.superpowers/
