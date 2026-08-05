@@ -76,6 +76,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # Claude Code 設定リポジトリの実行ファイル（my-claude-code-settings/bin へのsymlink）
 export PATH="$HOME/.claude/bin:$PATH"
 
+# Go（go install したバイナリの配置先。GOPATH/GOBIN はデフォルトのまま使う）
+export PATH="$HOME/go/bin:$PATH"
+
 # IntelliJ IDEAをコマンドラインから起動するための関数
 idea() { open -a "IntelliJ IDEA" "$@"; }
 

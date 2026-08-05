@@ -2,6 +2,9 @@
 *~
 .DS_Store
 
+# タスク管理用の一時ファイル（タスクごとに使い捨てる）
+tasks/
+
 # 秘匿情報・自動生成・依存物（取り込み禁止）
 config/gh/hosts.yml
 config/karabiner/automatic_backups/
