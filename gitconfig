@@ -48,3 +48,5 @@
 	rebase = true
 [include]
 	path = ~/.gitconfig.local
+[gpg "ssh"]
+	program = /Users/sasakin/.local/bin/ssh-keygen-bitwarden
