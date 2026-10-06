@@ -1,5 +1,8 @@
 {
   "$schema" : "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "computerUse" : {
+    "enabled" : false
+  },
   "schemaVersion" : 1,
   "shortcuts" : {
     "bindings" : {
