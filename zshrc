@@ -5,14 +5,15 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH=/usr/local/bin/git:$PATH
 
 # peco インクリメンタルサーチ
+# fc -l は改行を \n と表示するため、複数行のコマンドを再利用できない。
+# 改行を ⏎ に置き換えて表示し、peco --null で履歴番号を返させて元の内容を取り出す
+zmodload zsh/parameter
 function select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+    local num
+    num=$(for k in ${(Onk)history}; do
+        print -r -- "${history[$k]//$'\n'/⏎ }"$'\0'"$k"
+    done | peco --null --query "$LBUFFER")
+    [[ -n $num ]] && BUFFER=${history[$num]}
     CURSOR=$#BUFFER
     zle -R -c
 }
