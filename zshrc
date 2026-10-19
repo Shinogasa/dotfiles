@@ -82,5 +82,9 @@ export PATH="$HOME/go/bin:$PATH"
 # IntelliJ IDEAをコマンドラインから起動するための関数
 idea() { open -a "IntelliJ IDEA" "$@"; }
 
+# cmux の Claude Code 連携hookを切る（使っておらず、hookが5秒でタイムアウトする）
+export CMUX_CLAUDE_HOOKS_DISABLED=1
+
 # マシン固有設定（コミットしない）
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
