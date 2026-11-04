@@ -1,5 +1,7 @@
 #  Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+# curl は keg-only なので明示的に PATH へ前置きする（brew --prefix は起動が遅いのでパス固定）
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 # Git
 export PATH=/usr/local/bin/git:$PATH
