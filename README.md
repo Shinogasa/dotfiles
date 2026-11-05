@@ -81,6 +81,7 @@ brew trust --formula kayac/tap/ecspresso
 | `config/rtk/config.toml` | rtk（トークン圧縮CLI）設定 | `~/.config/rtk/config.toml` |
 | `Brewfile` | Homebrew パッケージ一覧 | — |
 | `setup.sh` | シンボリックリンク作成スクリプト | — |
+| （brew の Docker プラグイン） | `docker compose` / `docker buildx`（[Docker](#dockercolima--brew) 参照） | `~/.docker/cli-plugins/docker-{compose,buildx}` |
 
 > **cmux の設定ファイルについて**
 >
@@ -175,6 +176,58 @@ brew outdated
 
 cask を追加したら、その提供元 tap も併せて記載する。
 tap の記載漏れは `brew bundle check` では検出できず、新環境でのインストール時に初めて失敗する。
+
+## Docker（colima + brew）
+
+Docker Desktop は使わない。デーモンは colima、CLI とプラグインは brew で入れる。
+
+| 部品 | 提供元 |
+|---|---|
+| `docker` 本体 | brew `docker` |
+| `docker compose` / `docker buildx` | brew `docker-compose` / `docker-buildx`。`setup.sh` が `~/.docker/cli-plugins/` へリンクする |
+| 認証ヘルパー（`docker-credential-osxkeychain`） | brew `docker-credential-helper` |
+| デーモン | brew `colima`（`colima start` で起動し、docker context `colima` を作る） |
+
+`~/.docker/config.json` と `~/.docker/` はリポジトリで管理しない。`auths` に認証情報が入りうるうえ、
+`currentContext` などをツールが書き換えるため。brew の caveats が案内する `cliPluginsExtraDirs` を使わず、
+`setup.sh` でリンクするのも同じ理由。
+
+### Docker Desktop からの移行（一度だけ手で行う）
+
+Docker Desktop は docker context を `desktop-linux` に切り替え、`~/.docker/cli-plugins/` と
+`/usr/local/bin/docker-credential-*` を `Docker.app` へのリンクで埋める。アンインストールすると
+これらが壊れ、`docker ps` が `dial unix ~/.docker/run/docker.sock: no such file or directory` で失敗する。
+
+```bash
+# 1. Docker Desktop をアンインストールする
+/Applications/Docker.app/Contents/MacOS/uninstall
+
+# 2. brew 版を入れ、プラグインをリンクし直す
+brew bundle install --file=~/garage/dotfiles/Brewfile
+bash ~/garage/dotfiles/setup.sh
+
+# 3. リンク先が無くなったプラグインと認証ヘルパーのリンクを消す
+find ~/.docker/cli-plugins -type l ! -exec test -e {} \; -print -delete
+find /usr/local/bin -maxdepth 1 -name 'docker-credential-*' -type l ! -exec test -e {} \; -print   # 確認してから sudo rm
+
+# 4. docker context を colima に戻し、Desktop の context を消す
+docker context use colima
+docker context rm desktop-linux
+```
+
+5. `~/.docker/config.json` をエディタで開き、次のように直す（`auths` は残す）
+   - `"credsStore": "desktop"` を `"credsStore": "osxkeychain"` にする
+   - Desktop 由来の `plugins`（`ai` `compose` `debug` `scout` などの `hooks`）と `features.hooks` を消す
+6. 認証ヘルパーを変えると、Desktop が保存した認証情報は引き継がれないことがある。
+   pull や push が認証エラーになったら、そのレジストリに `docker login` し直す
+
+移行後の確認:
+
+```bash
+docker compose version && docker buildx version
+docker context show   # → colima
+docker ps
+```
 
 ## VSCode 拡張
 

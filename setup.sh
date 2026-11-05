@@ -74,6 +74,53 @@ for target in "${TARGETS[@]}"; do
   green "✓ $src_rel → $dest （新規作成）"
 done
 
+# === Docker CLI プラグイン（brew 版） ===
+# Docker Desktop を使わず colima + brew で動かすため、brew 版の compose / buildx を
+# ~/.docker/cli-plugins/ へリンクする。リンク元は brew の caveats が案内するディレクトリで、
+# brew upgrade のたびに新しい Cellar を指し直されるのでバージョンが変わっても壊れない。
+# ~/.docker/config.json の cliPluginsExtraDirs は使わない（ツールが書き換えるファイルを dotfiles で持たないため）
+echo ""
+echo "=== Docker CLI プラグイン ==="
+
+DOCKER_PLUGINS=(docker-compose docker-buildx)
+DOCKER_PLUGIN_DIR="$HOME/.docker/cli-plugins"
+
+if command -v brew > /dev/null 2>&1; then
+  brew_plugin_dir="$(brew --prefix)/lib/docker/cli-plugins"
+  for plugin in "${DOCKER_PLUGINS[@]}"; do
+    src="$brew_plugin_dir/$plugin"
+    dest="$DOCKER_PLUGIN_DIR/$plugin"
+
+    if [ ! -e "$src" ]; then
+      red "スキップ: $plugin （$src がありません。brew bundle install を先に実行してください）"
+      continue
+    fi
+
+    if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+      green "✓ $plugin → $dest （リンク済み）"
+      continue
+    fi
+
+    if [ -L "$dest" ]; then
+      yellow "  更新: $dest （旧リンク先: $(readlink "$dest")）"
+      rm "$dest"
+    elif [ -e "$dest" ]; then
+      if [ "$backup_created" = false ]; then
+        mkdir -p "$BACKUP_DIR"
+        backup_created=true
+      fi
+      yellow "  バックアップ: $dest → $BACKUP_DIR/$plugin"
+      mv "$dest" "$BACKUP_DIR/$plugin"
+    fi
+
+    mkdir -p "$DOCKER_PLUGIN_DIR"
+    ln -s "$src" "$dest"
+    green "✓ $plugin → $dest （新規作成）"
+  done
+else
+  yellow "Homebrew が見つからないため、Docker CLI プラグインのリンクをスキップしました"
+fi
+
 # === .local ファイルの確認 ===
 echo ""
 echo "=== .local ファイルの確認 ==="
