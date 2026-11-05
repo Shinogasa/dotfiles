@@ -1,3 +1,7 @@
+# PATH の重複を除く（最初に出たものを残す）。/etc/paths.d・~/.zprofile・ツールのインストーラも
+# 同じディレクトリを足すため、行を削って合わせるのではなくここでまとめて除く
+typeset -U path PATH
+
 #  Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 # curl は keg-only なので明示的に PATH へ前置きする（brew --prefix は起動が遅いのでパス固定）
