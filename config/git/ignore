@@ -15,3 +15,8 @@
 # エージェントがタスクごとに書く使い捨ての作業ファイル（my-claude-code-settings の rules/completion-anchor.md）。
 # 上と同じアンカー規則なので **/ を付け、ネストしたサブプロジェクト配下にも効かせる。
 **/tasks/todo/
+
+# エージェントが作るworktree（my-claude-code-settings の rules/parallel-worktree.md、ADR 0051）。
+# Claude Code は .claude/worktrees/、Codex は .codex/worktrees/ に作る。ネストした子repoにも効かせるため **/ を付ける。
+**/.claude/worktrees/
+**/.codex/worktrees/
