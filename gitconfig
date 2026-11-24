@@ -14,7 +14,8 @@
         gr = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
         sw = switch
 [color]
-        ui = always
+        # always にすると、パイプで git の出力を読む道具（gitleaks など）が色の制御文字で黙って壊れる
+        ui = auto
 
 [color "branch"]
         current = green bold
