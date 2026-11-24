@@ -18,6 +18,8 @@ brew "node"
 brew "nvm"
 brew "peco"
 brew "pnpm"
+# my-claude-code-settings の hook と setup.sh が python3 を使う。awscli の依存として入るだけにしない
+brew "python@3.15"
 brew "rtk"
 brew "socat"
 brew "starship"
