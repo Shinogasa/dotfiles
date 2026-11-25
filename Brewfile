@@ -12,6 +12,8 @@ brew "docker-compose"
 brew "docker-credential-helper"
 brew "gh"
 brew "git"
+# work-journal の scripts/mask.py が秘密情報の検出に使う。無いとマスクが「検査できなかった」で止まる
+brew "gitleaks"
 brew "go"
 brew "mise"
 brew "node"
